@@ -1,0 +1,61 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+#{if first}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span10">
+            <div>
+                <h3>最新通知</h3>
+            </div>
+            <table class="table" id="queryTable">
+            <tr>
+                <td>
+                    <h4 align="center">${first.subTitle}</h4>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;${first.content}</p>
+                    <p align="right">${first.author}</p>
+                    <p align="right">${first.createTime.format('yyyy-MM-dd')}</p>
+                </td>
+            </tr>
+            </table>
+#{if oldNotices}
+            <div>
+                <h3>通知列表</h3>
+            </div>
+            <table class="table" id="queryTable">
+                <thead>
+                  <tr>
+                      <th>序号</th>
+                      <th>标题</th>
+                      <th>发出时间</th>
+                      <th>作者</th>
+                      <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+#{list items:oldNotices,as:'notice'}
+                  <tr>
+                      <td>${notice_index}</td>
+                      <td>${notice.subTitle}</td>
+                      <td>${notice.createTime.format('yyyy-MM-dd')}</td>
+                      <td>${notice.author}</td>
+                      <td>
+                          <a class="btn btn-success" href="/add">新增</a>
+                          <a class="btn btn-danger">删除</a>
+                          <a class="btn btn-primary">修改</a>
+                          <a class="btn btn-info" href="@{Application.show(notice.id)}">查看</a>
+                      </td>
+                  </tr>
+#{/list}
+                </tbody>
+            </table>
+#{/if}
+        </div>
+    </div>
+</div>
+#{/if}
+#{else}
+<div class="empty">
+    There is currently nothing to read here.
+</div>
+#{/else}

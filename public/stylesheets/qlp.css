@@ -1,0 +1,97 @@
+/*工具栏部分*/
+.toolbar {
+    margin-bottom: 20px;
+    /*border-bottom: 1px solid #CDCDCD;*/
+    font-size: 12px;
+    background: #eeeeee;
+    line-height: 0px;
+    padding-right: 2px;
+    padding-left: 2px;
+    padding-bottom: 1px;
+}
+.toolbar > ul {
+    border-radius: 0 0 0 0;
+    display: inline-block;
+    margin: 0;
+    padding: 0 5px;
+    position: inherit;
+}
+.toolbar > ul, .toolbar > ul > li {
+    list-style: none outside none;
+    padding: 2px;
+}
+.toolbar > ul > a {
+    color: #626262;
+}
+.toolbar > ul > a.btn {
+    color: #FFFFFF;
+}
+.toolbar > ul > li {
+    float: left;
+}
+.toolbar > ul > li.divider {
+    border-left: 1px solid #CDCDCD;
+    border-right: 1px solid #FFFFFF;
+    height: 26px;
+    margin: 0 5px;
+    padding: 0;
+}
+.toolbar > .row-fluid {
+    min-height: 30px;
+    padding-top: 5px;
+}
+.toolbar > .row-fluid > ul {
+    position: inherit;
+    margin: 0px;
+    padding: 0px 5px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    display: inline-block;
+}
+.toolbar > .row-fluid > ul,
+.toolbar > .row-fluid > ul > li {
+    padding: 2px;
+    list-style: none;
+}
+.toolbar > .row-fluid > ul > a {
+    color: #626262;
+}
+.toolbar > .row-fluid > ul > a.btn {
+    color: #ffffff;
+}
+.toolbar > .row-fluid > ul > li {
+    float: left;
+}
+.toolbar > .row-fluid > ul > li.divider {
+    height: 26px;
+    margin: 0 5px;
+    border-right: 1px solid #ffffff;
+    border-left: 1px solid #CDCDCD;
+    padding: 0px;
+}
+.toolbar > .row-fluid select {
+    height: 24px;
+    line-height: 24px;
+    padding: 2px;
+    margin-bottom: 0px !important;
+    width: auto;
+}
+.toolbar > .row-fluid .uneditable-input,
+.toolbar > .row-fluid .input,
+.toolbar > .row-fluid input {
+    margin-bottom: 0px;
+    padding: 2px 6px;
+}
+.toolbar > .row-fluid .btn-group,
+.toolbar > .row-fluid .input-append,
+.toolbar > .row-fluid .input-prepend {
+    margin-bottom: 0px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.toolbar > .inputtools {
+    background: #ffffff;
+    border-bottom: 1px dotted #CDCDCD;
+    min-height: 40px;
+}

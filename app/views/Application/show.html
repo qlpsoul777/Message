@@ -1,0 +1,27 @@
+#{extends 'main.html' /}
+#{set title:notice.subTitle /}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span2"></div>
+        <div class="span8">
+            <div>
+                <h3>通知详情</h3>
+            </div>
+            <h4 align="left">楼主：</h4>
+            <p>${notice.content}</p>
+            <p align="right">${notice.author}------${notice.createTime.format('yyyy-MM-dd')}</p>
+            <hr style="border:1px dashed #000; height:1px">
+            #{if replies}
+                #{list items:replies,as:'reply'}
+                  <p align="left">${reply_index}楼：</p>
+                  <p>${reply.content}</p>
+                  <p align="right">${reply.author}------${reply.replyTime.format('yyyy-MM-dd')}</p>
+                  <hr style="border:1px dotted #036" />
+                #{/list}
+            #{/if}
+            #{else}
+                <p>暂无回复</p>
+            #{/else}
+        </div>
+    </div>
+</div>

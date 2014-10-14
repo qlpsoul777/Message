@@ -1,0 +1,9 @@
+14 十月 2014 13:58:52,443 INFO  ~ Starting D:\iJob\Message\.
+14 十月 2014 13:58:52,834 WARN  ~ You're running Play! in DEV mode
+14 十月 2014 13:58:52,891 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+14 十月 2014 13:58:58,046 INFO  ~ Connected to jdbc:h2:mem:play;MODE=MYSQL;LOCK_MODE=0
+14 十月 2014 13:58:58,620 INFO  ~ Application 'Message' is now started !
+14 十月 2014 13:58:58,808 DEBUG ~ select notice0_.id as id0_, notice0_.author as author0_, notice0_.content as content0_, notice0_.createTime as createTime0_, notice0_.subTitle as subTitle0_ from t_message_notice notice0_ order by notice0_.createTime desc limit ?
+14 十月 2014 13:58:58,818 DEBUG ~ select notice0_.id as id0_, notice0_.author as author0_, notice0_.content as content0_, notice0_.createTime as createTime0_, notice0_.subTitle as subTitle0_ from t_message_notice notice0_ order by notice0_.createTime desc limit ? offset ?
+14 十月 2014 13:59:02,056 DEBUG ~ select notice0_.id as id0_, notice0_.author as author0_, notice0_.content as content0_, notice0_.createTime as createTime0_, notice0_.subTitle as subTitle0_ from t_message_notice notice0_ order by notice0_.createTime desc limit ?
+14 十月 2014 13:59:02,058 DEBUG ~ select notice0_.id as id0_, notice0_.author as author0_, notice0_.content as content0_, notice0_.createTime as createTime0_, notice0_.subTitle as subTitle0_ from t_message_notice notice0_ order by notice0_.createTime desc limit ? offset ?
