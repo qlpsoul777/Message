@@ -1,11 +1,33 @@
 #{extends 'main.html' /}
 #{set title:notice.subTitle /}
+<link rel="stylesheet" href="@{'/public/stylesheets/qlp.css'}">
+<style type="text/css" rel="stylesheet">
+    .error{
+        color: red;
+    }
+</style>
+<script src="@{'/public/javascripts/jquery.validate.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script type="text/javascript">
+    $(function(){
+        $("form").validate({
+            errorElement:"em",
+            rules: {
+                author: {required:true,maxlength:30},
+                content: {required:true,minlength:5,maxlength:5000}
+            },
+            messages: {
+                author: {required:"不能为空",maxlength:"最多不超过30个字"},
+                content: {required:"不能为空",minlength:"至少5个字",maxlength:"最多不超过5000个字"}
+            }
+        });
+    });
+</script>
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span2"></div>
         <div class="span8">
             <div>
-                <h3>通知详情</h3>
+                <h3>讨论区</h3>
             </div>
             <h4 align="left">楼主：</h4>
             <p>${notice.content}</p>
@@ -22,6 +44,51 @@
             #{else}
                 <p>暂无回复</p>
             #{/else}
+        #{form @Application.reply(notice.id)}
+            <div class="span7">
+                <div>
+                    <h3>回复区</h3>
+                </div>
+                <table class="table">
+                    <tr>
+                        <td>
+                            <div class="control-group">
+                                <label class="control-label" for="author">回复人：</label>
+                                <div class="controls">
+                                    <input id="author" type="text" name="author" value="${params.author}"/>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="control-group">
+                                <label class="control-label" for="content">回复内容：</label>
+                                <div class="controls">
+                                    <textarea name="content" id="content" rows="7" style="width:580px">${params.content}</textarea>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="code">验证码: </label>
+                            <img src="@{Application.captcha(randomID)}" />
+                            <br />
+                            <input type="text" name="code" id="code" size="18" value="" />
+                            <input type="hidden" name="randomID" value="${randomID}" />
+                        </td>
+                    </tr>
+                </table>
+                <div class="toolbar" align="center">
+                    <ul>
+                        <li>
+                            <button class="btn btn-success" type="submit">回复</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        #{/form}
         </div>
     </div>
 </div>

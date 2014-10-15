@@ -40,7 +40,6 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="library" name="play-testrunner" level="project" />
   </component>
 </module>
 

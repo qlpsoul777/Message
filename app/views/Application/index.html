@@ -1,6 +1,14 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
-
+<script type="text/javascript">
+    function sureDelete(){
+        if(confirm("Are you sure delete this data")){
+           return true;
+        }else{
+            return false;
+        }
+    }
+</script>
 #{if first}
 <div class="container-fluid">
     <div class="row-fluid">
@@ -41,8 +49,8 @@
                       <td>${notice.author}</td>
                       <td>
                           <a class="btn btn-success" href="/add">新增</a>
-                          <a class="btn btn-danger">删除</a>
-                          <a class="btn btn-primary">修改</a>
+                          <a class="btn btn-danger" href="@{Application.delete(notice.id)}"  onclick="return sureDelete()">删除</a>
+                          <a class="btn btn-primary" href="@{Application.edit(notice.id)}">修改</a>
                           <a class="btn btn-info" href="@{Application.show(notice.id)}">查看</a>
                       </td>
                   </tr>
