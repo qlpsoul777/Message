@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:'新增通知' /}
+#{set title:'新增主题' /}
 <link rel="stylesheet" href="@{'/public/stylesheets/qlp.css'}">
 <style type="text/css" rel="stylesheet">
     .error{
@@ -27,9 +27,9 @@
     <div class="row-fluid">
         <div class="span12">
             <div>
-                <h3>编辑通知</h3>
+                <h3>编辑主题</h3>
             </div>
-        #{form @Application.save(notice.id)}
+            <form action="@{Application.save(notice?.id)}" method="post" enctype="multipart/form-data">
                 <div class="toolbar">
                     <ul>
                         <li>
@@ -62,6 +62,16 @@
                     <tr>
                         <td colspan="2">
                             <div class="control-group">
+                                <label class="control-label" for="image">上传附件：</label>
+                                <div class="controls">
+                                    <input type="file" name="image"/>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="control-group">
                                 <label class="control-label" for="content">内容：</label>
                                 <div class="controls">
                                     <textarea name="content" id="content" rows="7" style="width:780px">${notice.content}</textarea>
@@ -70,7 +80,7 @@
                         </td>
                     </tr>
                 </table>
-        #{/form}
+       </form>
         </div>
     </div>
 </div>

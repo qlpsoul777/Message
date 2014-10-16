@@ -1,5 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
+<link rel="stylesheet" href="@{'/public/stylesheets/qlp.css'}">
 <script type="text/javascript">
     function sureDelete(){
         if(confirm("Are you sure delete this data")){
@@ -8,13 +9,17 @@
             return false;
         }
     }
+
+    $(function(){
+
+    });
 </script>
 #{if first}
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span10">
             <div>
-                <h3>最新通知</h3>
+                <h3>最新主题</h3>
             </div>
             <table class="table" id="queryTable">
             <tr>
@@ -28,8 +33,20 @@
             </table>
 #{if oldNotices}
             <div>
-                <h3>通知列表</h3>
+                <h3>主题列表(<a class="btn btn-success" href="/add">新增主题</a>)</h3>
             </div>
+            <div class="toolbar">
+                <ul>
+                    <li><h4>标题：</h4></li>
+                    <li><input type="text" name="title" value="" placeholder="例：主题标题"/></li>
+                    <li><h4>作者：</h4></li>
+                    <li><input type="text" name="author" value="" placeholder="例：注册用户A"/></li>
+                    <li>
+                        <button id="subFind" type="submit" class="btn btn-success">查询</button>
+                    </li>
+                </ul>
+            </div>
+
             <table class="table" id="queryTable">
                 <thead>
                   <tr>
@@ -43,20 +60,26 @@
                 <tbody>
 #{list items:oldNotices,as:'notice'}
                   <tr>
-                      <td>${notice_index}</td>
+                      <td>${notice_index  + (currentPage-1)*5}</td>
                       <td>${notice.subTitle}</td>
                       <td>${notice.createTime.format('yyyy-MM-dd')}</td>
                       <td>${notice.author}</td>
                       <td>
-                          <a class="btn btn-success" href="/add">新增</a>
                           <a class="btn btn-danger" href="@{Application.delete(notice.id)}"  onclick="return sureDelete()">删除</a>
                           <a class="btn btn-primary" href="@{Application.edit(notice.id)}">修改</a>
                           <a class="btn btn-info" href="@{Application.show(notice.id)}">查看</a>
+                      #{if notice.imgPath}<a class="btn btn-success" href="@{Application.download(notice.id)}">下载附件</a> #{/if}
                       </td>
                   </tr>
 #{/list}
                 </tbody>
             </table>
+            <div class="pagination pagination-centered">
+                <ul>
+                    <li id="prev"><a href="@{Application.previousPage(currentPage)}">上一页</a></li>
+                    <li id="next"><a href="@{Application.nextPage(currentPage)}">下一页</a></li>
+                </ul>
+            </div>
 #{/if}
         </div>
     </div>

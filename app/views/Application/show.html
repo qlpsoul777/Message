@@ -31,6 +31,9 @@
             </div>
             <h4 align="left">楼主：</h4>
             <p>${notice.content}</p>
+            #{if notice.imgPath}
+            <p align="left"><img src="${path}${notice.imgPath}" width="200px" height="200px"/></p>
+            #{/if}
             <p align="right">${notice.author}------${notice.createTime.format('yyyy-MM-dd')}</p>
             <hr style="border:1px dashed #000; height:1px">
             #{if replies}
@@ -74,6 +77,7 @@
                         <td>
                             <label for="code">验证码: </label>
                             <img src="@{Application.captcha(randomID)}" />
+                            <a href="@{Application.show(notice.id)}">看不清，换一张</a>
                             <br />
                             <input type="text" name="code" id="code" size="18" value="" />
                             <input type="hidden" name="randomID" value="${randomID}" />

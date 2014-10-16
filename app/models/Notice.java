@@ -22,4 +22,6 @@ public class Notice extends Model{
 
     public Date createTime = new Date();  //创建时间
 
+    public String imgPath;  //附件地址
+
 }
