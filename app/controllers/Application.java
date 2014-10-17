@@ -1,21 +1,19 @@
 package controllers;
 
+import models.Notice;
+import models.Reply;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.PatternLayout;
 import play.Play;
 import play.cache.Cache;
 import play.libs.Codec;
 import play.libs.Files;
 import play.libs.Images;
-import play.mvc.*;
+import play.mvc.Controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.*;
-
-import models.*;
+import java.util.Date;
+import java.util.List;
 
 public class Application extends Controller {
     public static final int PAGE_SIZE = 5;  //每页显示条数
@@ -24,9 +22,9 @@ public class Application extends Controller {
      * 总页数
      * @return
      */
-    public static int totalPage(){
+    public static int totalPage(String query){
         int total;
-        int totalSize = Notice.findAll().size();
+        int totalSize = Notice.find(query).fetch().size();
         if((totalSize % PAGE_SIZE) == 0){
             total = totalSize/PAGE_SIZE;
         }else{
@@ -44,9 +42,30 @@ public class Application extends Controller {
         }
         Notice first = Notice.find("order by createTime desc").first();
         int start = (currentPage-1)*PAGE_SIZE;
-        List<Notice> oldNotices = Notice.find("order by createTime desc").from(start).fetch(PAGE_SIZE);
-        int totalSize = totalPage();
-        render(first,oldNotices,currentPage,totalSize);
+        String title = params.get("title");
+        String author = params.get("author");
+        String query = createQuery(title,author);
+        List<Notice> oldNotices = Notice.find(query).from(start).fetch(PAGE_SIZE);
+        int totalSize = totalPage(query);
+        render(first,oldNotices,currentPage,totalSize,title,author);
+    }
+
+    private static String createQuery(String title, String author) {
+        StringBuffer sb = new StringBuffer("from Notice n ");
+        if(StringUtils.isNotBlank(title) || StringUtils.isNotBlank(author)){
+            sb.append("where ");
+        }
+        if(StringUtils.isNotBlank(title)){
+            sb.append("n.subTitle like '%").append(title).append("%' ");
+        }
+        if(StringUtils.isNotBlank(title) && StringUtils.isNotBlank(author)){
+            sb.append("and ");
+        }
+        if(StringUtils.isNotBlank(author)){
+            sb.append("n.author like '%").append(author).append("%' ");
+        }
+        sb.append("order by n.createTime desc");
+        return sb.toString();
     }
 
     /**
@@ -57,11 +76,22 @@ public class Application extends Controller {
         Notice notice = Notice.findById(id);
         List<Reply> replies = Reply.find("from Reply r where r.notice.id = ?1", id).fetch();
         String randomID = Codec.UUID();
-        String path = Play.applicationPath.getAbsolutePath();
+        String path = Play.applicationPath.getAbsolutePath(); //project's absolutePath
         if(StringUtils.contains(path,'\\')){
-            path = StringUtils.replaceChars(path,'\\','/').substring(0,path.length()-1);
+            path = StringUtils.replaceChars(path,'\\','/').substring(0,path.length()-1);  //image's absolutePath
         }
         render(notice, replies, randomID, path);
+    }
+
+    /**
+     * show notice's image
+     * @param path
+     */
+    public static void showImage(String path){
+        File file = new File(path);
+        if(file.exists()){
+            renderBinary(file);
+        }
     }
 
     /**
@@ -86,8 +116,10 @@ public class Application extends Controller {
         }else{
             notice = Notice.findById(noticeId);
         }
-        String imgPath = saveFile(image);
-        notice.imgPath = imgPath;
+        if(image != null){
+            String imgPath = saveFile(image);
+            notice.imgPath = imgPath;
+        }
         notice.subTitle = subTitle;
         notice.author = author;
         notice.content = content;
@@ -180,20 +212,6 @@ public class Application extends Controller {
         }
         Cache.delete(randomID);
         show(id);
-    }
-
-    public static void previousPage(int currentPage){
-        if(currentPage >1){
-            currentPage -= 1;
-        }
-        index(currentPage);
-    }
-
-    public static void nextPage(int currentPage){
-        if(currentPage != totalPage()){
-            currentPage += 1;
-        }
-        index(currentPage);
     }
 
 }

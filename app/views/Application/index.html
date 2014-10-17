@@ -32,15 +32,16 @@
             </tr>
             </table>
 #{if oldNotices}
+<form id="queryForm" action="@{Application.index()}" method="get">
             <div>
                 <h3>主题列表(<a class="btn btn-success" href="/add">新增主题</a>)</h3>
             </div>
             <div class="toolbar">
                 <ul>
                     <li><h4>标题：</h4></li>
-                    <li><input type="text" name="title" value="" placeholder="例：主题标题"/></li>
+                    <li><input type="text" name="title" value="${title}" placeholder="例：主题标题"/></li>
                     <li><h4>作者：</h4></li>
-                    <li><input type="text" name="author" value="" placeholder="例：注册用户A"/></li>
+                    <li><input type="text" name="author" value="${author}" placeholder="例：注册用户A"/></li>
                     <li>
                         <button id="subFind" type="submit" class="btn btn-success">查询</button>
                     </li>
@@ -75,11 +76,9 @@
                 </tbody>
             </table>
             <div class="pagination pagination-centered">
-                <ul>
-                    <li id="prev"><a href="@{Application.previousPage(currentPage)}">上一页</a></li>
-                    <li id="next"><a href="@{Application.nextPage(currentPage)}">下一页</a></li>
-                </ul>
+                 #{page formId: 'queryForm',current:currentPage,total:totalSize,style:'styleOne'}#{/page}
             </div>
+    </form>
 #{/if}
         </div>
     </div>

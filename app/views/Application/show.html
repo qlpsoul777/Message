@@ -32,7 +32,7 @@
             <h4 align="left">楼主：</h4>
             <p>${notice.content}</p>
             #{if notice.imgPath}
-            <p align="left"><img src="${path}${notice.imgPath}" width="200px" height="200px"/></p>
+            <p align="left"><img src="@{Application.showImage(notice.imgPath)}" width="200px" height="200px"/></p>
             #{/if}
             <p align="right">${notice.author}------${notice.createTime.format('yyyy-MM-dd')}</p>
             <hr style="border:1px dashed #000; height:1px">
