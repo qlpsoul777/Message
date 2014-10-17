@@ -50,6 +50,12 @@ public class Application extends Controller {
         render(first,oldNotices,currentPage,totalSize,title,author);
     }
 
+    /**
+     * 构造jpql语句
+     * @param title
+     * @param author
+     * @return
+     */
     private static String createQuery(String title, String author) {
         StringBuffer sb = new StringBuffer("from Notice n ");
         if(StringUtils.isNotBlank(title) || StringUtils.isNotBlank(author)){

@@ -60,11 +60,20 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td>
                             <div class="control-group">
                                 <label class="control-label" for="image">上传附件：</label>
                                 <div class="controls">
                                     <input type="file" name="image"/>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="control-group">
+                                <div class="controls">
+                                #{if notice.imgPath}
+                                    <img src="@{Application.showImage(notice.imgPath)}" width="500px" height="200px"/>
+                                #{/if}
                                 </div>
                             </div>
                         </td>
