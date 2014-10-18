@@ -138,7 +138,7 @@ public class Application extends Controller {
      * @param image
      * @return
      */
-    private static String saveFile(File image) {
+    public static String saveFile(File image) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         double random = (Math.random()*100000);
         int rand = (int) Math.floor(random);

@@ -20,3 +20,5 @@ GET     /add                             Application.add
 GET    /delete/{id}                    Application.delete
 #edit notice
 #GET    /edit/{id}                      Application.edit
+
+GET     /upload                             VersionUpload.inUpload
