@@ -9,11 +9,14 @@ import play.libs.Codec;
 import play.libs.Files;
 import play.libs.Images;
 import play.mvc.Controller;
+import utils.FindUtil;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Application extends Controller {
     public static final int PAGE_SIZE = 5;  //每页显示条数
@@ -80,7 +83,11 @@ public class Application extends Controller {
      */
     public static void show(Long id){
         Notice notice = Notice.findById(id);
-        List<Reply> replies = Reply.find("from Reply r where r.notice.id = ?1", id).fetch();
+        FindUtil findUtil = new FindUtil(Reply.class);
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("notice.id",id);
+        List<Reply> replies = (List<Reply>) findUtil.queryByMap(map);
+//        List<Reply> replies = Reply.find("from Reply r where r.notice.id = ?1", id).fetch();
         String randomID = Codec.UUID();
         String path = Play.applicationPath.getAbsolutePath(); //project's absolutePath
         if(StringUtils.contains(path,'\\')){
