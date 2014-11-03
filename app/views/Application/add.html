@@ -13,11 +13,11 @@
         $("form").validate({
             errorElement:"em",
             rules: {
-                subTitle: "required",
+                subTitle: {required:true,remote:#{jsAction @Application.repate()/}},
                 author: "required"
             },
             messages: {
-                subTitle: "不能为空",
+                subTitle: {required:"不能为空",remote:"主题已存在"},
                 author: "不能为空"
             }
         });

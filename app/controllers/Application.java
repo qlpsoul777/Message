@@ -227,4 +227,13 @@ public class Application extends Controller {
         show(id);
     }
 
+    public static boolean repate() {
+        String str = params.get("subTitle");
+        List<Notice> notices = Notice.find("bySubTitle",str).fetch();
+        if(notices.isEmpty()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
